@@ -1,6 +1,7 @@
 package com.spring.microservices.controller;
 
 import com.spring.microservices.model.Product;
+import com.spring.microservices.model.ProductResponse;
 import com.spring.microservices.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,17 +27,19 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> retrieveProducts(){
+    public List<ProductResponse> retrieveProducts(){
         return productService.retrieveProducts();
     }
 
     @GetMapping("/product/{id}")
-    public Product retrieveProduct(@PathVariable Long id){
+    public List<ProductResponse> retrieveProduct(@PathVariable Long id) {
 
-        if(productService.retrieveProduct(id).isPresent()){
-            return productService.retrieveProduct(id).get();
-        }else {
-            return null;
-        }
-       }
+        return productService.retrieveProduct(id);
+    }
+
+    @GetMapping("/product/{id}/{zipCode}")
+    public ProductResponse retrieveProduct(@PathVariable Long id, @PathVariable Integer zipCode) {
+
+        return productService.retrieveProductByZipcode(id, zipCode);
+    }
 }
