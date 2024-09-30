@@ -18,7 +18,7 @@ spec:
           image: postgres:15
           env:
             - name: POSTGRES_DB
-              value: "inventoryDB"
+              value: "productDB"
             - name: POSTGRES_USER
               value: "postgres"
             - name: POSTGRES_PASSWORD
@@ -73,11 +73,11 @@ spec:
         app: product-service
     spec:
       containers:
-        - name: order-service
+        - name: product-service
           image: bhag1988/product-service:v1.0
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://postgres-service:5432/orderDB
+              value: jdbc:postgresql://postgres-service:5432/productDB
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
             - name: SPRING_DATASOURCE_PASSWORD
